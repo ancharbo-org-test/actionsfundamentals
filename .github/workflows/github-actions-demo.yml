@@ -33,44 +33,42 @@ jobs:
           tree
   Test:
     runs-on: ubuntu-latest
-    if: github.event.name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     needs: Build
     environment: Test
     steps:
-      - run: echo "testing..."
+      - run: echo "🧪 Testing..."
 
   Load-Test:
     runs-on: ubuntu-latest
-    if: github.event.name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     needs: Build
     environment: Load-Test
     steps:
-      - run: echo "load testings..."
-      - run: sleep 15
+      - run: |
+          echo "🧪 Testing..."
+          sleep 15
 
   Production:
     runs-on: ubuntu-latest
-    if: github.event.inputs.environment == 'Production'
     needs: [Test, Load-Test]
-    environment: 
+    environment:
       name: Production
-      url: ttps://writeabout.net
-    steps: 
+      url: https://writeabout.net
+    if: github.event.inputs.environment == 'Production'
+    steps:
       - run: |
-          echo "Step 1 deploying"
-          sleep 10
-          echo "Step 2 deploying"
-          sleep 10
-          echo "Step 3 deploying"
-          sleep 10
-          echo "Step 4 deploying"
+          echo "🚀 Step 1..."
           sleep 10
       - run: |
-          echo "Step 5 deploying"
+          echo "🚀 Step 2..."
           sleep 10
-          
-        
-      
-      
-
-    
+      - run: |
+          echo "🚀 Step 3..."
+          sleep 10
+      - run: |
+          echo "🚀 Step 4..."
+          sleep 10
+      - run: |
+          echo "🚀 Step 5..."
+          sleep 10
